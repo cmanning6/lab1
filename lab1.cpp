@@ -41,7 +41,7 @@ using namespace std;
 #include <GL/glx.h>
 
 const int MAX_PARTICLES = 2000;
-const float GRAVITY = -0.1;
+const float GRAVITY = -1.0;
 
 //some structures
 
@@ -72,8 +72,8 @@ public:
 		//define a box shape
 		box.width = 100;
 		box.height = 10;
-		box.center.x = 120 + 5*65;
-		box.center.y = 500 - 5*60;
+		box.center.x = 120;
+		box.center.y = 500;
 		n = 0;
 	}
 } g;
@@ -185,7 +185,7 @@ void makeParticle(int x, int y)
 {
 	if (g.n >= MAX_PARTICLES)
 		return;
-	cout << "makeParticle() " << x << " " << y << endl;
+	//cout << "makeParticle() " << x << " " << y << endl;
 	//position of particle
 	Particle *p = &g.particle[g.n];
 	p->s.center.x = x;
@@ -274,7 +274,8 @@ void movement()
 	   p->s.center.x > s->center.x - s->width &&
 	   p->s.center.x < s->center.x + s->width) {
 		//bounce
-		p->velocity.y = -p->velocity.y;
+		p->velocity.y = 0;
+        p->s.center.y = s->center.y + s->height + 1;
 	}
 
 
